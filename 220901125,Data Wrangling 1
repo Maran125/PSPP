@@ -1,0 +1,200 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "7bf819a1-4d02-4f8c-b37f-d5597c4d7440",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Original DataFrame 1:\n",
+      "     name  age\n",
+      "0  Sally   50\n",
+      "1   Mary   40\n",
+      "2   John   30\n",
+      "\n",
+      "Original DataFrame 2:\n",
+      "    qualified\n",
+      "0       True\n",
+      "1      False\n",
+      "2      False\n",
+      "\n",
+      "Joining the above two DataFrame using join operation:\n",
+      "     name  age  qualified\n",
+      "0  Sally   50       True\n",
+      "1   Mary   40      False\n",
+      "2   John   30      False\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "data1 = {\"name\":[\"Sally\",\"Mary\",\"John\"],\"age\":[50,40,30]}\n",
+    "data2 = {\"qualified\":[True,False,False]}\n",
+    "df1 = pd.DataFrame(data1)\n",
+    "print(\"Original DataFrame 1:\\n\",df1)\n",
+    "df2 = pd.DataFrame(data2)\n",
+    "print(\"\\nOriginal DataFrame 2:\\n\",df2)\n",
+    "newdf = df1.join(df2)\n",
+    "print(\"\\nJoining the above two DataFrame using join operation:\\n\",newdf)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "8d215ad5-048a-44b3-bdfe-42c0f8df449b",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Original DataFrame 1:\n",
+      "    0  1\n",
+      "0  1  2\n",
+      "1  3  4\n",
+      "\n",
+      "Original DataFrame 2:\n",
+      "    0  1\n",
+      "0  5  6\n",
+      "1  7  8\n",
+      "\n",
+      "Combining the above two DataFrame using combine function with some condition:\n",
+      "    0  1\n",
+      "0  5  6\n",
+      "1  7  8\n"
+     ]
+    }
+   ],
+   "source": [
+    "df1 = pd.DataFrame([[1,2],[3,4]])\n",
+    "df2 = pd.DataFrame([[5,6],[7,8]])\n",
+    "def myfunc(a,b):\n",
+    "    if(a.sum()> b.sum()):\n",
+    "        return a\n",
+    "    else:\n",
+    "        return b\n",
+    "print(\"\\nOriginal DataFrame 1:\\n\",df1)\n",
+    "print(\"\\nOriginal DataFrame 1:\\n\",df1)\n",
+    "print(\"\\nCombining the above two DataFrame using combine function with some condition:\\n\",df1.combine(df2,myfunc))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "1cbff97e-1ab6-4200-a5c9-0809970ab64a",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Original DataFrame 1:\n",
+      "     name  age\n",
+      "0  Sally   50\n",
+      "1   Mary   40\n",
+      "2   John   30\n",
+      "\n",
+      "Original DataFrame 1:\n",
+      "     name  age\n",
+      "0  Sally   50\n",
+      "1   Mary   40\n",
+      "2   John   30\n",
+      "\n",
+      "Merge operation:\n",
+      "     name  age\n",
+      "0  Sally   77\n",
+      "1  Peter   44\n",
+      "2  Micky   22\n"
+     ]
+    }
+   ],
+   "source": [
+    "data1 = {\"name\":[\"Sally\",\"Mary\",\"John\"],\"age\":[50,40,30]}\n",
+    "data2 = {\"name\":[\"Sally\",\"Peter\",\"Micky\"],\"age\":[77,44,22]}\n",
+    "df1 = pd.DataFrame(data1)\n",
+    "df2 = pd.DataFrame(data2)\n",
+    "print(\"\\nOriginal DataFrame 1:\\n\",df1)\n",
+    "print(\"\\nOriginal DataFrame 1:\\n\",df1)\n",
+    "newdf = df1.merge(df2,how='right')\n",
+    "print(\"\\nMerge operation:\\n\",newdf)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "d5918c28-0c96-4194-918f-24bb28d7a71e",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Original DataFrame:\n",
+      "   team  points  assists  rebounds\n",
+      "0    A      88       12        22\n",
+      "1    B      91       17        28\n",
+      "2    C      99       24        30\n",
+      "3    D      94       28        31\n",
+      "\n",
+      "Reshaped DataFrame:\n",
+      "    team  variable  value\n",
+      "0     A    points     88\n",
+      "1     B    points     91\n",
+      "2     C    points     99\n",
+      "3     D    points     94\n",
+      "4     A   assists     12\n",
+      "5     B   assists     17\n",
+      "6     C   assists     24\n",
+      "7     D   assists     28\n",
+      "8     A  rebounds     22\n",
+      "9     B  rebounds     28\n",
+      "10    C  rebounds     30\n",
+      "11    D  rebounds     31\n"
+     ]
+    }
+   ],
+   "source": [
+    "df=pd.DataFrame({'team':['A','B','C','D'],'points':[88,91,99,94],'assists':[12,17,24,28],'rebounds':[22,28,30,31]})\n",
+    "print(\"\\nOriginal DataFrame:\\n\",df)\n",
+    "df=pd.melt(df,id_vars='team',value_vars=['points','assists','rebounds'])\n",
+    "print(\"\\nReshaped DataFrame:\\n\",df)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "06e1636d-dbd5-4989-afc2-01ce0a217242",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
